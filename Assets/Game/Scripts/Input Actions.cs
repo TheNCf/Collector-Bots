@@ -102,7 +102,16 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Choose"",
+                    ""name"": ""Mouse Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""862c2180-9b7f-4193-b800-53ab77f09d4e"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Primary Action"",
                     ""type"": ""Button"",
                     ""id"": ""c788c0c1-584a-4d9d-b231-f68e63f9e6cf"",
                     ""expectedControlType"": """",
@@ -111,7 +120,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Cancel"",
+                    ""name"": ""Alternative Action"",
                     ""type"": ""Button"",
                     ""id"": ""0ad93772-41aa-4330-972e-820013c7ee67"",
                     ""expectedControlType"": """",
@@ -192,7 +201,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard and Mouse"",
-                    ""action"": ""Choose"",
+                    ""action"": ""Primary Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -203,7 +212,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard and Mouse"",
-                    ""action"": ""Cancel"",
+                    ""action"": ""Alternative Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -239,6 +248,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fdfc860a-2969-49db-9a99-19bc4c8aa4b0"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mouse Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -276,8 +296,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_Choose = m_Player.FindAction("Choose", throwIfNotFound: true);
-        m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
+        m_Player_MouseMove = m_Player.FindAction("Mouse Move", throwIfNotFound: true);
+        m_Player_PrimaryAction = m_Player.FindAction("Primary Action", throwIfNotFound: true);
+        m_Player_AlternativeAction = m_Player.FindAction("Alternative Action", throwIfNotFound: true);
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
     }
 
@@ -360,8 +381,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_Choose;
-    private readonly InputAction m_Player_Cancel;
+    private readonly InputAction m_Player_MouseMove;
+    private readonly InputAction m_Player_PrimaryAction;
+    private readonly InputAction m_Player_AlternativeAction;
     private readonly InputAction m_Player_Zoom;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
@@ -379,13 +401,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Player_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Choose".
+        /// Provides access to the underlying input action "Player/MouseMove".
         /// </summary>
-        public InputAction @Choose => m_Wrapper.m_Player_Choose;
+        public InputAction @MouseMove => m_Wrapper.m_Player_MouseMove;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Cancel".
+        /// Provides access to the underlying input action "Player/PrimaryAction".
         /// </summary>
-        public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
+        public InputAction @PrimaryAction => m_Wrapper.m_Player_PrimaryAction;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/AlternativeAction".
+        /// </summary>
+        public InputAction @AlternativeAction => m_Wrapper.m_Player_AlternativeAction;
         /// <summary>
         /// Provides access to the underlying input action "Player/Zoom".
         /// </summary>
@@ -419,12 +445,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Choose.started += instance.OnChoose;
-            @Choose.performed += instance.OnChoose;
-            @Choose.canceled += instance.OnChoose;
-            @Cancel.started += instance.OnCancel;
-            @Cancel.performed += instance.OnCancel;
-            @Cancel.canceled += instance.OnCancel;
+            @MouseMove.started += instance.OnMouseMove;
+            @MouseMove.performed += instance.OnMouseMove;
+            @MouseMove.canceled += instance.OnMouseMove;
+            @PrimaryAction.started += instance.OnPrimaryAction;
+            @PrimaryAction.performed += instance.OnPrimaryAction;
+            @PrimaryAction.canceled += instance.OnPrimaryAction;
+            @AlternativeAction.started += instance.OnAlternativeAction;
+            @AlternativeAction.performed += instance.OnAlternativeAction;
+            @AlternativeAction.canceled += instance.OnAlternativeAction;
             @Zoom.started += instance.OnZoom;
             @Zoom.performed += instance.OnZoom;
             @Zoom.canceled += instance.OnZoom;
@@ -442,12 +471,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Choose.started -= instance.OnChoose;
-            @Choose.performed -= instance.OnChoose;
-            @Choose.canceled -= instance.OnChoose;
-            @Cancel.started -= instance.OnCancel;
-            @Cancel.performed -= instance.OnCancel;
-            @Cancel.canceled -= instance.OnCancel;
+            @MouseMove.started -= instance.OnMouseMove;
+            @MouseMove.performed -= instance.OnMouseMove;
+            @MouseMove.canceled -= instance.OnMouseMove;
+            @PrimaryAction.started -= instance.OnPrimaryAction;
+            @PrimaryAction.performed -= instance.OnPrimaryAction;
+            @PrimaryAction.canceled -= instance.OnPrimaryAction;
+            @AlternativeAction.started -= instance.OnAlternativeAction;
+            @AlternativeAction.performed -= instance.OnAlternativeAction;
+            @AlternativeAction.canceled -= instance.OnAlternativeAction;
             @Zoom.started -= instance.OnZoom;
             @Zoom.performed -= instance.OnZoom;
             @Zoom.canceled -= instance.OnZoom;
@@ -525,19 +557,26 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Choose" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Mouse Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnChoose(InputAction.CallbackContext context);
+        void OnMouseMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Cancel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Primary Action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnCancel(InputAction.CallbackContext context);
+        void OnPrimaryAction(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Alternative Action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAlternativeAction(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Zoom" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

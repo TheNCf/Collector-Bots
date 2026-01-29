@@ -16,7 +16,16 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Choose",
+                    "name": "Mouse Move",
+                    "type": "Value",
+                    "id": "862c2180-9b7f-4193-b800-53ab77f09d4e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Primary Action",
                     "type": "Button",
                     "id": "c788c0c1-584a-4d9d-b231-f68e63f9e6cf",
                     "expectedControlType": "",
@@ -25,7 +34,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Cancel",
+                    "name": "Alternative Action",
                     "type": "Button",
                     "id": "0ad93772-41aa-4330-972e-820013c7ee67",
                     "expectedControlType": "",
@@ -106,7 +115,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard and Mouse",
-                    "action": "Choose",
+                    "action": "Primary Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -117,7 +126,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard and Mouse",
-                    "action": "Cancel",
+                    "action": "Alternative Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -153,6 +162,17 @@
                     "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "fdfc860a-2969-49db-9a99-19bc4c8aa4b0",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
