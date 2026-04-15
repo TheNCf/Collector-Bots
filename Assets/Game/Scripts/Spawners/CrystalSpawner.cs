@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CrystalSpawner : SpawnerBase<Crystal>
 {
-    [SerializeField] private LayerMask _layerToSpawnOn;
     [SerializeField] private float _radius;
     [SerializeField] private float _delay;
 
@@ -43,7 +42,10 @@ public class CrystalSpawner : SpawnerBase<Crystal>
             Vector3 rayOrigin = transform.position + randomModifier;
             Ray ray = new Ray(rayOrigin, Vector3.down);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, _layerToSpawnOn.value) == false)
+            if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue) == false)
+                continue;
+
+            if (hit.collider.TryGetComponent(out Ground ground) == false)
                 continue;
 
             Crystal crystal = ObjectPool.Get();
