@@ -32,7 +32,7 @@ public class Base : MonoBehaviour
         _burstSearcher.SearchConducted -= _unitCommander.AquireTargets;
     }
 
-    private void AddCrystal()
+    private void AddCrystal(Crystal crystal)
     {
         _crystalResource += 50;
         CrystalResourceChanged?.Invoke(_crystalResource);

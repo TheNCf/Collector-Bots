@@ -31,8 +31,9 @@ public class BurstSearcher : MonoBehaviour
 
     private Collider[] Search()
     {
-        Collider[] _colliders = Physics.OverlapSphere(transform.position, _searchRadius, _targetLayer);
-        Debug.Log($"Search conducted, found {_colliders.Length} crystals");
-        return _colliders.OrderBy(collider => (collider.transform.position - transform.position).sqrMagnitude).ToArray();
+        Collider[] colliders = new Collider[0];
+        Physics.OverlapSphereNonAlloc(transform.position, _searchRadius, colliders, _targetLayer);
+        Debug.Log($"Search conducted, found {colliders.Length} crystals");
+        return colliders.OrderBy(collider => (collider.transform.position - transform.position).sqrMagnitude).ToArray();
     }
 }

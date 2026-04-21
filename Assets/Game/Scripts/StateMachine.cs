@@ -13,11 +13,6 @@ public class StateMachine : MonoBehaviour
         _currentState?.Tick();
     }
 
-    public void Initialize(Action initializeAction)
-    {
-        initializeAction?.Invoke();
-    }
-
     public void AddState(IState state)
     {
         foreach (var existingState in _states)

@@ -6,7 +6,7 @@ public class UnitCommander : MonoBehaviour
 {
     [SerializeField] private List<Bot> _bots = new List<Bot>();
 
-    private Action _onCrystalDelivered;
+    private Action<Crystal> _onCrystalDelivered;
 
     private void OnDisable()
     {
@@ -16,7 +16,7 @@ public class UnitCommander : MonoBehaviour
         }
     }
 
-    public void Initialize(Action OnCrystalDelivered)
+    public void Initialize(Action<Crystal> OnCrystalDelivered)
     {
         _onCrystalDelivered = OnCrystalDelivered;
 

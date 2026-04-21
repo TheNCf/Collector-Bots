@@ -21,7 +21,7 @@ public class Bot : MonoBehaviour
 
     public bool IsBusy { get; private set; } = false;
 
-    public event Action CrystalDelivered;
+    public event Action<Crystal> CrystalDelivered;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class Bot : MonoBehaviour
         _stateMachine = GetComponent<StateMachine>();
         _mover = GetComponent<BotMover>();
 
-        _stateMachine.Initialize(InitializeStateMachine);
+        InitializeStateMachine();
 
         _startPlace = transform.position;
     }
@@ -45,10 +45,10 @@ public class Bot : MonoBehaviour
         if (_animator.GetBool(BotAnimatorData.Params.IsCarrying))
         {
             _mover.SetTarget(_startPlace);
+            CrystalDelivered?.Invoke(_carriedCrystal.GetComponent<Crystal>());
             Destroy(_carriedCrystal.gameObject);
             IsBusy = false;
             _animator.SetBool(BotAnimatorData.Params.IsCarrying, false);
-            CrystalDelivered?.Invoke();
         }
         else
         {
