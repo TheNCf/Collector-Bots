@@ -12,7 +12,15 @@ public class BurstSearcher : MonoBehaviour
 
     private WaitForSeconds _delay;
 
+    Collider[] _colliders = new Collider[10];
+
     public event Action<Collider[]> SearchConducted;
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _searchRadius);
+    }
 
     private void Awake()
     {
@@ -31,9 +39,8 @@ public class BurstSearcher : MonoBehaviour
 
     private Collider[] Search()
     {
-        Collider[] colliders = new Collider[0];
-        Physics.OverlapSphereNonAlloc(transform.position, _searchRadius, colliders, _targetLayer);
-        Debug.Log($"Search conducted, found {colliders.Length} crystals");
-        return colliders.OrderBy(collider => (collider.transform.position - transform.position).sqrMagnitude).ToArray();
+        Physics.OverlapSphereNonAlloc(transform.position, _searchRadius, _colliders, _targetLayer);
+        Debug.Log($"Search conducted, found {_colliders.Count(collider => collider != null)} crystals");
+        return _colliders.OrderBy(collider => (collider.transform.position - transform.position).sqrMagnitude).ToArray();
     }
 }

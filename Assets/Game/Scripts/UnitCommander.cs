@@ -6,6 +6,8 @@ public class UnitCommander : MonoBehaviour
 {
     [SerializeField] private List<Bot> _bots = new List<Bot>();
 
+    private List<Transform> _accuiredTargets = new List<Transform>();
+
     private Action<Crystal> _onCrystalDelivered;
 
     private void OnDisable()
@@ -38,7 +40,14 @@ public class UnitCommander : MonoBehaviour
             if (targetIndex >= _targets.Length)
                 return;
 
+            if (_targets[targetIndex] == null)
+                return;
+
+            if (_accuiredTargets.Contains(_targets[targetIndex].transform))
+                continue;
+
             bot.AquireTarget(_targets[targetIndex].transform.position);
+            targetIndex++;
         }
     }
 }
