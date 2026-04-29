@@ -40,9 +40,6 @@ public class UnitCommander : MonoBehaviour
             if (targetIndex >= _targets.Length)
                 return;
 
-            if (_targets[targetIndex] == null)
-                return;
-
             if (_accuiredTargets.Contains(_targets[targetIndex].transform))
                 continue;
 

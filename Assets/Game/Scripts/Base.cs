@@ -36,5 +36,6 @@ public class Base : MonoBehaviour
     {
         _crystalResource += 50;
         CrystalResourceChanged?.Invoke(_crystalResource);
+        crystal.OnDelivered();
     }
 }

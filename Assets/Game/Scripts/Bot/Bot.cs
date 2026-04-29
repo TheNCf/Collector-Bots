@@ -46,7 +46,6 @@ public class Bot : MonoBehaviour
         {
             _mover.SetTarget(_startPlace);
             CrystalDelivered?.Invoke(_carriedCrystal.GetComponent<Crystal>());
-            Destroy(_carriedCrystal.gameObject);
             IsBusy = false;
             _animator.SetBool(BotAnimatorData.Params.IsCarrying, false);
         }

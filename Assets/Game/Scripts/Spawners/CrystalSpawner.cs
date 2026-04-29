@@ -50,6 +50,7 @@ public class CrystalSpawner : SpawnerBase<Crystal>
 
             Crystal crystal = ObjectPool.Get();
             crystal.transform.position = hit.point;
+            crystal.Delivered += ObjectPool.Release;
         }
     }
 }
