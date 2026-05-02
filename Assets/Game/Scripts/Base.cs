@@ -3,12 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BurstSearcher))]
-[RequireComponent(typeof(UnitCommander))]
 public class Base : MonoBehaviour
 {
-    private BurstSearcher _burstSearcher;
-    private UnitCommander _unitCommander;
+    [SerializeField] private BurstSearcher _burstSearcher;
+    [SerializeField] private UnitCommander _unitCommander;
 
     private int _crystalResource = 0;
 
@@ -16,9 +14,6 @@ public class Base : MonoBehaviour
 
     private void Awake()
     {
-        _burstSearcher = GetComponent<BurstSearcher>();
-        _unitCommander = GetComponent<UnitCommander>();
-
         _unitCommander.Initialize(AddCrystal);
     }
 

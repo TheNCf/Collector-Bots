@@ -29,6 +29,13 @@ public class CrystalSpawner : SpawnerBase<Crystal>
         StartCoroutine(SpawnCoroutine());
     }
 
+    protected override Crystal Create()
+    {
+        Crystal obj = base.Create();
+        obj.transform.parent = transform;
+        return obj;
+    }
+
     private IEnumerator SpawnCoroutine()
     {
         while (isActiveAndEnabled)
