@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class CameraMover : MonoBehaviour
 {
@@ -10,18 +11,28 @@ public class CameraMover : MonoBehaviour
     [SerializeField] private float _maxSpeed = 7.0f;
     [SerializeField] private float _mouseSensivity = 0.1f;
     [SerializeField] private float _zoomSensivity = 0.1f;
+    [SerializeField] private float _smoothTime = 3.0f;
     [SerializeField] private AnimationCurve _zoomHeight;
     [SerializeField] private AnimationCurve _zoomAngle;
 
     private InputActions _input;
 
+    private Transform _target;
+
     private Vector2 _direction;
     private bool _canRotate = false;
     private float _zoomValue = 0.5f;
 
+    private Vector3 _cameraTargetPosition;
+    private Vector3 _cameraTargetRotation;
+
     private void Awake()
     {
         _input = new InputActions();
+
+        _target = new GameObject().transform;
+        _target.transform.position = transform.position;
+
         SetZoom();
     }
 
@@ -75,7 +86,11 @@ public class CameraMover : MonoBehaviour
     {
         Vector3 velocity = new Vector3(_direction.x, 0, _direction.y) * _maxSpeed * Time.deltaTime;
 
-        transform.Translate(velocity, Space.Self);
+        _target.Translate(velocity, Space.Self);
+
+        transform.position = Vector3.Lerp(transform.position, _target.position, Time.deltaTime * _smoothTime);
+        _camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, _cameraTargetPosition, Time.deltaTime * _smoothTime);
+        _camera.transform.localEulerAngles = Vector3.Lerp(_camera.transform.localEulerAngles, _cameraTargetRotation, Time.deltaTime * _smoothTime);
     }
 
     private void Rotate(InputAction.CallbackContext context)
@@ -86,16 +101,14 @@ public class CameraMover : MonoBehaviour
         Vector2 mouseDelta = context.ReadValue<Vector2>() * _mouseSensivity;
 
         transform.Rotate(0, mouseDelta.x, 0);
+        _target.Rotate(0, mouseDelta.x, 0);
     }
 
     private void SetZoom()
     {
-        Vector3 position = _camera.transform.position;
-        position.y = _zoomHeight.Evaluate(_zoomValue);
-        Vector3 rotation = _camera.transform.localEulerAngles;
-        rotation.x = _zoomAngle.Evaluate(_zoomValue);
-
-        _camera.transform.position = position;
-        _camera.transform.localEulerAngles = rotation;
+        _cameraTargetPosition = _camera.transform.localPosition;
+        _cameraTargetPosition.y = _zoomHeight.Evaluate(_zoomValue);
+        _cameraTargetRotation = _camera.transform.localEulerAngles;
+        _cameraTargetRotation.x = _zoomAngle.Evaluate(_zoomValue);
     }
 }
