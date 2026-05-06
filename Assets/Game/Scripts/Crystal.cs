@@ -12,6 +12,11 @@ public class Crystal : MonoBehaviour, IPoolableObject
         Delivered?.Invoke(this);
     }
 
+    public void OnTrageted()
+    {
+        IsTargeted = true;
+    }
+
     public void Activate()
     {
         gameObject.SetActive(true);

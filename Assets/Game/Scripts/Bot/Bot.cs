@@ -7,9 +7,10 @@ using UnityEngine;
 [RequireComponent(typeof(Animator), typeof(StateMachine), typeof(BotMover))]
 public class Bot : MonoBehaviour
 {
-    [SerializeField] private Transform _crystalStorage;
     [SerializeField] private float _pickUpDistance = 1f;
     [SerializeField] private LayerMask _crystalLayerMask;
+    
+    private Transform _crystalStorage;
 
     private Animator _animator;
     private StateMachine _stateMachine;
@@ -18,6 +19,8 @@ public class Bot : MonoBehaviour
     private Vector3 _startPlace;
 
     private Collider _carriedCrystal;
+
+    private bool _isInitialized = false;
 
     public bool IsBusy { get; private set; } = false;
 
@@ -32,6 +35,15 @@ public class Bot : MonoBehaviour
         InitializeStateMachine();
 
         _startPlace = transform.position;
+
+        gameObject.SetActive(false);
+    }
+
+    public void Initialize(Transform crystalStorage)
+    {
+        _crystalStorage = crystalStorage;
+        gameObject.SetActive(true);
+        _isInitialized = true;
     }
 
     public void AquireTarget(Vector3 position)
