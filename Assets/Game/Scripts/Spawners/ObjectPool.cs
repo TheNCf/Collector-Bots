@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class ObjectPool<T> where T : UnityEngine.Object, IPoolableObject
+public class ObjectPool<T> where T : MonoBehaviour, IPoolableObject
 {
     private readonly List<T> _pooledObjectList;
 
-    private int _pooledAtStart;
-    private int _countAll;
+    private int _pooledAtStart = 0;
+    private int _countAll = 0;
 
     private Func<T> _createFunction;
     private Action<T> _onGetAction;
@@ -57,8 +57,9 @@ public class ObjectPool<T> where T : UnityEngine.Object, IPoolableObject
         if (CountInactive > 0)
             foreach (var item in _pooledObjectList)
                 if (item == obj)
-                    throw new InvalidOperationException("Trying to release already released object!");
+                    throw new InvalidOperationException($"Trying to release already released object! {obj.name}");
 
+        Debug.Log($"{obj.name} released.");
         _pooledObjectList.Add(obj);
         _onReleaseAction?.Invoke(obj);
     }
@@ -80,8 +81,9 @@ public class ObjectPool<T> where T : UnityEngine.Object, IPoolableObject
         for (int i = 0; i < _pooledAtStart; i++)
         {
             buffer = _createFunction();
-            _pooledObjectList.Add(buffer);
             _countAll++;
+            buffer.gameObject.name += $" ({_countAll})";
+            _pooledObjectList.Add(buffer);
         }
     }
 }

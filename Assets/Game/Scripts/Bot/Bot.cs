@@ -56,10 +56,14 @@ public class Bot : MonoBehaviour
     {
         if (_animator.GetBool(BotAnimatorData.Params.IsCarrying))
         {
+            if (_carriedCrystal == null)
+                return;
+
             _mover.SetTarget(_startPlace);
-            CrystalDelivered?.Invoke(_carriedCrystal.GetComponent<Crystal>());
             IsBusy = false;
             _animator.SetBool(BotAnimatorData.Params.IsCarrying, false);
+            CrystalDelivered?.Invoke(_carriedCrystal.GetComponent<Crystal>());
+            _carriedCrystal = null;
         }
         else
         {

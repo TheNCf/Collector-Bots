@@ -26,6 +26,5 @@ public class Crystal : MonoBehaviour, IPoolableObject
     {
         gameObject.SetActive(false);
         IsTargeted = false;
-        transform.parent = null;
     }
 }

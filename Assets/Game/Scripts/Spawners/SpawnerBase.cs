@@ -39,6 +39,7 @@ public abstract class SpawnerBase<T> : MonoBehaviour where T : MonoBehaviour, IP
         T obj = Instantiate(PrefabToSpawn);
         obj.transform.parent = transform;
         obj.ResetObject();
+        obj.gameObject.name = $"{PrefabToSpawn.gameObject.name}";
         return obj;
     }
 
@@ -49,6 +50,7 @@ public abstract class SpawnerBase<T> : MonoBehaviour where T : MonoBehaviour, IP
 
     protected virtual void OnRelease(T obj)
     {
+        obj.transform.parent = transform;
         obj.ResetObject();
     }
 
