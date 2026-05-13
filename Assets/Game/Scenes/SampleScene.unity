@@ -1028,8 +1028,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PrefabToSpawn: {fileID: 811502175941118648, guid: 8f4a122493835c443b492d8e720b439e, type: 3}
-  PoolSizeAtStart: 25
-  _radius: 30
+  PoolSizeAtStart: 5
+  _radius: 25
   _delay: 0.5
 --- !u!4 &1611060540
 Transform:
