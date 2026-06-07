@@ -56,7 +56,7 @@ public class UnitCommander : MonoBehaviour
                 return;
 
             bot.AquireTarget(_targets[targetIndex].transform.position);
-            _targets[targetIndex].OnTrageted();
+            _targets[targetIndex].OnTargeted();
             targetIndex++;
         }
     }

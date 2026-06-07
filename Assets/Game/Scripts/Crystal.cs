@@ -12,7 +12,7 @@ public class Crystal : MonoBehaviour, IPoolableObject
         Delivered?.Invoke(this);
     }
 
-    public void OnTrageted()
+    public void OnTargeted()
     {
         IsTargeted = true;
     }
@@ -26,5 +26,6 @@ public class Crystal : MonoBehaviour, IPoolableObject
     {
         gameObject.SetActive(false);
         IsTargeted = false;
+        Delivered = null;
     }
 }

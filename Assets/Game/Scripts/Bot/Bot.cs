@@ -54,6 +54,9 @@ public class Bot : MonoBehaviour
 
     public void OnPickUpFinished()
     {
+        if (IsBusy == false)
+            return;
+
         if (_animator.GetBool(BotAnimatorData.Params.IsCarrying))
         {
             if (_carriedCrystal == null)
