@@ -18,12 +18,12 @@ public class UnitCommander : MonoBehaviour
     private Vector3 _unitStartPosition;
     private float _gapBetweenUnits = 1.5f;
 
+    public int UnitsUnderCommand => _bots.Count;
+
     private void Start()
     {
         _unitStartPosition = transform.position;
 
-        CreateNewUnit();
-        CreateNewUnit();
         CreateNewUnit();
     }
 
