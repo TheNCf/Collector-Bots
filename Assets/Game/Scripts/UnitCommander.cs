@@ -25,6 +25,7 @@ public class UnitCommander : MonoBehaviour
         _unitStartPosition = transform.position;
 
         CreateNewUnit();
+        CreateNewUnit();
     }
 
     private void OnDisable()

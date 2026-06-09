@@ -648,6 +648,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -729,6 +730,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2049284116}
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286c75eb9aea42846888313fe8e79e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  _baseLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &1096978210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1616,7 +1635,7 @@ GameObject:
   - component: {fileID: 4000012434809051}
   - component: {fileID: 4000012434809054}
   - component: {fileID: 4000012434809052}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1913,6 +1932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _burstSearcher: {fileID: 4000012434809054}
   _unitCommander: {fileID: 2017076489}
+  _flagPrefab: {fileID: 2093239297366288681, guid: 1e8e1520bc4e596448531483f1014d26, type: 3}
   _crystalPrice: 50
   _newUnitCost: 150
   _newBaseCost: 250
