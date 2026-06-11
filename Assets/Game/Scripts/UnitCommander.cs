@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -24,7 +25,6 @@ public class UnitCommander : MonoBehaviour
     {
         _unitStartPosition = transform.position;
 
-        CreateNewUnit();
         CreateNewUnit();
     }
 
@@ -80,5 +80,15 @@ public class UnitCommander : MonoBehaviour
             _currentWidthIndex = 0;
             _currentLengthIndex++;
         }
+    }
+
+    public void SendUnitToBuildBase(Vector3 position)
+    {
+        Bot lastBot = _bots.Last();
+        lastBot.BuildBase(position);
+        BotDockStation botDockStation = lastBot.GetComponentInParent<BotDockStation>();
+        lastBot.transform.parent = null;
+        _bots.Remove(lastBot);
+        Destroy(botDockStation);
     }
 }

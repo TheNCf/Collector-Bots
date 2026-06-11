@@ -1097,6 +1097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133a05956349e1f478303c2bdfb43774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _basePrefab: {fileID: 5615274184149203718, guid: 69721d3509d57464ca30d06ec3db466b, type: 3}
   _pickUpDistance: 1
   _crystalLayerMask:
     serializedVersion: 2
@@ -1506,6 +1507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6978179305318683159}
+  - component: {fileID: 3186667873570751669}
   m_Layer: 0
   m_Name: Unit Start Position
   m_TagString: Untagged
@@ -1530,6 +1532,18 @@ Transform:
   - {fileID: 1262905259012725160}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3186667873570751669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868323363568382060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1f30f5597ac9144a9a6af7d63e3b6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2941173427725466793
 GameObject:
   m_ObjectHideFlags: 0

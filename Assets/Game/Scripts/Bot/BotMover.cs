@@ -34,4 +34,10 @@ public class BotMover : MonoBehaviour
         _isPathCompleted = false;
         TargetAcquired?.Invoke();
     }
+
+    private void OnDestroy()
+    {
+        PathCompleted = null;
+        TargetAcquired = null;
+    }
 }

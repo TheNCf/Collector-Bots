@@ -16,11 +16,29 @@ public class Base : MonoBehaviour
 
     private int _crystalResource = 0;
 
+    private Vector3 _expandPosition;
+
     public bool FocusOnExpand { get; private set; } = false;
 
     public bool CanExpand => _unitCommander.UnitsUnderCommand > 1;
 
     public event Action<int> CrystalResourceChanged;
+
+    private void Awake()
+    {
+        transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        _unitCommander.Initialize(AddCrystal);
+    }
+
+    private void OnEnable()
+    {
+        _burstSearcher.SearchConducted += _unitCommander.AquireTargets;
+    }
+
+    private void OnDisable()
+    {
+        _burstSearcher.SearchConducted -= _unitCommander.AquireTargets;
+    }
 
     public Flag CreateFlag()
     {
@@ -44,21 +62,6 @@ public class Base : MonoBehaviour
         _currentFlag.Dropped -= OnFlagDropped;
     }
 
-    private void Awake()
-    {
-        _unitCommander.Initialize(AddCrystal);
-    }
-
-    private void OnEnable()
-    {
-        _burstSearcher.SearchConducted += _unitCommander.AquireTargets;
-    }
-
-    private void OnDisable()
-    {
-        _burstSearcher.SearchConducted -= _unitCommander.AquireTargets;
-    }
-
     private void AddCrystal(Crystal crystal)
     {
         _crystalResource += _crystalPrice;
@@ -67,8 +70,15 @@ public class Base : MonoBehaviour
 
         if (FocusOnExpand)
         {
-            if (_crystalResource >= _newBaseCost || _unitCommander.UnitsUnderCommand < 2)
+            if (_crystalResource < _newBaseCost || _unitCommander.UnitsUnderCommand < 2)
                 return;
+
+            _crystalResource -= _newBaseCost;
+            CrystalResourceChanged?.Invoke(_crystalResource);
+            _expandPosition = _currentFlag.transform.position;
+            _unitCommander.SendUnitToBuildBase(_expandPosition);
+            _currentFlag = null;
+            FocusOnExpand = false;
         }
         else
         {
