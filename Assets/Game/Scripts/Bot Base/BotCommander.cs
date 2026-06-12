@@ -12,9 +12,9 @@ public class BotCommander : MonoBehaviour
 
     private BotBaseSpawner _botBaseSpawner;
 
-    private int _botsMaxWidth = 3;
-    private int _currentWidthIndex = 0;
-    private int _currentLengthIndex = 0;
+    private int _botsStationsMaxWidth = 3;
+    private int _currentStationWidthIndex = 0;
+    private int _currentStationLengthIndex = 0;
 
     private Vector3 _botStartPosition;
     private float _gapBetweenBots = 1.5f;
@@ -73,7 +73,7 @@ public class BotCommander : MonoBehaviour
         if (_isInitialized == false)
             throw new UnityException("Trying to create bot while BotCommander(" + gameObject.name + ") isn't initialized!");
 
-        Vector3 position = _botStartPosition + new Vector3(_currentWidthIndex, 0, -_currentLengthIndex) * _gapBetweenBots;
+        Vector3 position = _botStartPosition + new Vector3(_currentStationWidthIndex, 0, -_currentStationLengthIndex) * _gapBetweenBots;
         BotDockStation newBotDockStation = Instantiate(_botDockStationPrefab, position, Quaternion.identity);
         newBotDockStation.transform.parent = transform;
         newBotDockStation.transform.forward = transform.forward;
@@ -82,12 +82,12 @@ public class BotCommander : MonoBehaviour
         newBot.CrystalDelivered += _onCrystalDelivered;
         _bots.Add(newBot);
 
-        _currentWidthIndex++;
+        _currentStationWidthIndex++;
 
-        if (_currentWidthIndex >= _botsMaxWidth)
+        if (_currentStationWidthIndex >= _botsStationsMaxWidth)
         {
-            _currentWidthIndex = 0;
-            _currentLengthIndex++;
+            _currentStationWidthIndex = 0;
+            _currentStationLengthIndex++;
         }
     }
 
@@ -99,5 +99,13 @@ public class BotCommander : MonoBehaviour
         lastBot.transform.parent = null;
         _bots.Remove(lastBot);
         Destroy(botDockStation.gameObject);
+
+        _currentStationWidthIndex--;
+
+        if (_currentStationWidthIndex < 0)
+        {
+            _currentStationWidthIndex = _botsStationsMaxWidth;
+            _currentStationLengthIndex--;
+        }
     }
 }

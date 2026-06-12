@@ -701,7 +701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c490b0cf951257b45b8e33b24ed88c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _burstDelay: 3
+  _burstDelay: 1
   _searchRadius: 30
   _targetLayer:
     serializedVersion: 2
