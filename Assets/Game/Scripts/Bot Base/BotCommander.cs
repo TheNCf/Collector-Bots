@@ -10,7 +10,7 @@ public class BotCommander : MonoBehaviour
     [SerializeField] private BotDockStation _botDockStationPrefab;
     [SerializeField] private Transform _crystalStorage;
 
-    private Action _onCrystalDelivered;
+    private BotBaseSpawner _botBaseSpawner;
 
     private int _botsMaxWidth = 3;
     private int _currentWidthIndex = 0;
@@ -19,7 +19,11 @@ public class BotCommander : MonoBehaviour
     private Vector3 _botStartPosition;
     private float _gapBetweenBots = 1.5f;
 
+    private bool _isInitialized = false;
+
     public int BotsUnderCommand => _bots.Count;
+
+    private Action _onCrystalDelivered;
 
     private void Start()
     {
@@ -39,9 +43,11 @@ public class BotCommander : MonoBehaviour
         }
     }
 
-    public void Initialize(Action OnCrystalDelivered)
+    public void Initialize(Action OnCrystalDelivered, BotBaseSpawner botBaseSpawner)
     {
         _onCrystalDelivered = OnCrystalDelivered;
+        _botBaseSpawner = botBaseSpawner;
+        _isInitialized = true;
     }
 
     public void AquireTargets(IReadOnlyList<Crystal> _targets)
@@ -64,6 +70,9 @@ public class BotCommander : MonoBehaviour
 
     public void CreateNewBot()
     {
+        if (_isInitialized == false)
+            throw new UnityException("Trying to create bot while BotCommander(" + gameObject.name + ") isn't initialized!");
+
         Vector3 position = _botStartPosition + new Vector3(_currentWidthIndex, 0, -_currentLengthIndex) * _gapBetweenBots;
         BotDockStation newBotDockStation = Instantiate(_botDockStationPrefab, position, Quaternion.identity);
         newBotDockStation.transform.parent = transform;
@@ -85,10 +94,10 @@ public class BotCommander : MonoBehaviour
     public void SendBotToBuildBase(Vector3 position)
     {
         Bot lastBot = _bots.Last();
-        lastBot.BuildBase(position);
+        lastBot.BuildBase(position, _botBaseSpawner);
         BotDockStation botDockStation = lastBot.GetComponentInParent<BotDockStation>();
         lastBot.transform.parent = null;
         _bots.Remove(lastBot);
-        Destroy(botDockStation);
+        Destroy(botDockStation.gameObject);
     }
 }

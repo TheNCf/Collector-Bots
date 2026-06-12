@@ -7,7 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof(Animator), typeof(StateMachine), typeof(BotMover))]
 public class Bot : MonoBehaviour
 {
-    [SerializeField] private BotBase _basePrefab;
     [SerializeField] private float _pickUpDistance = 1f;
     [SerializeField] private LayerMask _crystalLayerMask;
     
@@ -78,12 +77,12 @@ public class Bot : MonoBehaviour
         }
     }
 
-    public void BuildBase(Vector3 position)
+    public void BuildBase(Vector3 position, BotBaseSpawner botBaseSpawner)
     {
         AquireTarget(position);
         _mover.PathCompleted += () =>
         {
-            Instantiate(_basePrefab, position, Quaternion.identity);
+            botBaseSpawner.SpawnBotBase(position);
             Destroy(gameObject);
         };
     }

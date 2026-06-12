@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class UILookerAtCamera : MonoBehaviour
 {
-    [SerializeField] private Transform _target;
+    private Transform _target;
 
     private void Awake()
     {
-        if (_target == null)
-            _target = Camera.main.transform;
+        _target = Camera.main.transform;
     }
 
     private void Update()
