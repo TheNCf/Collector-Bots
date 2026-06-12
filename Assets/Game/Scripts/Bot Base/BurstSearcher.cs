@@ -40,6 +40,8 @@ public class BurstSearcher : MonoBehaviour
 
     private IReadOnlyList<Crystal> Search()
     {
+        _colliders = new Collider[10];
+
         Physics.OverlapSphereNonAlloc(transform.position, _searchRadius, _colliders, _targetLayer);
         
         _foundCrystals.Clear();
