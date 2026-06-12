@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a38b1a6692eb0449163b1a22c69399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 5615274184149203718}
+  _base: {fileID: 4143307508521560127}
   _text: {fileID: 4303742521629145577}
 --- !u!1 &4966850964545793870
 GameObject:
@@ -641,7 +641,7 @@ GameObject:
   - component: {fileID: 1958323545455484604}
   - component: {fileID: 5336368990452263077}
   - component: {fileID: 2552059160366144295}
-  - component: {fileID: 5615274184149203718}
+  - component: {fileID: 4143307508521560127}
   m_Layer: 8
   m_Name: Base
   m_TagString: Untagged
@@ -707,7 +707,7 @@ MonoBehaviour:
   _targetLayer:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &5615274184149203718
+--- !u!114 &4143307508521560127
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -716,7 +716,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5355436978802870727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d4fa816d99b5ad4c98fd0716dd6f766, type: 3}
+  m_Script: {fileID: 11500000, guid: 74946f6fc4d79504991acfb3b5d9d593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _burstSearcher: {fileID: 2552059160366144295}
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bots: []
-  _newUnitPrefab: {fileID: 2868323363568382060, guid: 1d368c602c617c343874659078f676aa, type: 3}
+  _botDockStationPrefab: {fileID: 3186667873570751669, guid: 1d368c602c617c343874659078f676aa, type: 3}
   _crystalStorage: {fileID: 5565118549017730789}
 --- !u!1 &7643690823169163088
 GameObject:

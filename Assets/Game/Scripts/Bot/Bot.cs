@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator), typeof(StateMachine), typeof(BotMover))]
 public class Bot : MonoBehaviour
 {
-    [SerializeField] private Base _basePrefab;
+    [SerializeField] private BotBase _basePrefab;
     [SerializeField] private float _pickUpDistance = 1f;
     [SerializeField] private LayerMask _crystalLayerMask;
     

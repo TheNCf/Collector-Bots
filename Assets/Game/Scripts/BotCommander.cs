@@ -4,28 +4,28 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class UnitCommander : MonoBehaviour
+public class BotCommander : MonoBehaviour
 {
     [SerializeField] private List<Bot> _bots = new List<Bot>();
-    [SerializeField] private GameObject _newUnitPrefab;
+    [SerializeField] private BotDockStation _botDockStationPrefab;
     [SerializeField] private Transform _crystalStorage;
 
     private Action _onCrystalDelivered;
 
-    private int _unitsMaxWidth = 3;
+    private int _botsMaxWidth = 3;
     private int _currentWidthIndex = 0;
     private int _currentLengthIndex = 0;
 
-    private Vector3 _unitStartPosition;
-    private float _gapBetweenUnits = 1.5f;
+    private Vector3 _botStartPosition;
+    private float _gapBetweenBots = 1.5f;
 
-    public int UnitsUnderCommand => _bots.Count;
+    public int BotsUnderCommand => _bots.Count;
 
     private void Start()
     {
-        _unitStartPosition = transform.position;
+        _botStartPosition = transform.position;
 
-        CreateNewUnit();
+        CreateNewBot();
     }
 
     private void OnDisable()
@@ -62,27 +62,27 @@ public class UnitCommander : MonoBehaviour
         }
     }
 
-    public void CreateNewUnit()
+    public void CreateNewBot()
     {
-        Vector3 position = _unitStartPosition + new Vector3(_currentWidthIndex, 0, -_currentLengthIndex) * _gapBetweenUnits;
-        GameObject newUnit = Instantiate(_newUnitPrefab, position, Quaternion.identity);
-        newUnit.transform.parent = transform;
-        newUnit.transform.forward = transform.forward;
-        Bot newBot = newUnit.GetComponentInChildren<Bot>(true);
+        Vector3 position = _botStartPosition + new Vector3(_currentWidthIndex, 0, -_currentLengthIndex) * _gapBetweenBots;
+        BotDockStation newBotDockStation = Instantiate(_botDockStationPrefab, position, Quaternion.identity);
+        newBotDockStation.transform.parent = transform;
+        newBotDockStation.transform.forward = transform.forward;
+        Bot newBot = newBotDockStation.GetComponentInChildren<Bot>(true);
         newBot.Initialize(_crystalStorage);
         newBot.CrystalDelivered += _onCrystalDelivered;
         _bots.Add(newBot);
 
         _currentWidthIndex++;
 
-        if (_currentWidthIndex >= _unitsMaxWidth)
+        if (_currentWidthIndex >= _botsMaxWidth)
         {
             _currentWidthIndex = 0;
             _currentLengthIndex++;
         }
     }
 
-    public void SendUnitToBuildBase(Vector3 position)
+    public void SendBotToBuildBase(Vector3 position)
     {
         Bot lastBot = _bots.Last();
         lastBot.BuildBase(position);

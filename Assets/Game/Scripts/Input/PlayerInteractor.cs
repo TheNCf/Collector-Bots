@@ -12,7 +12,7 @@ public class PlayerInteractor : MonoBehaviour
 
     private InputActions _input;
 
-    private Base _selectedBase;
+    private BotBase _selectedBase;
     private Flag _flagToPlace;
 
     private Vector2 _mousePositionOnScreen;
@@ -91,7 +91,7 @@ public class PlayerInteractor : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue, _baseLayerMask) == false)
             return;
 
-        if (hitInfo.collider.TryGetComponent(out Base crystalBase) == false)
+        if (hitInfo.collider.TryGetComponent(out BotBase crystalBase) == false)
             return;
 
         if (crystalBase.CanExpand == false)

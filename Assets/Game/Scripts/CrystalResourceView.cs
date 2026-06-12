@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CrystalResourceView : MonoBehaviour
 {
-    [SerializeField] private Base _base;
+    [SerializeField] private BotBase _base;
     [SerializeField] private TextMeshProUGUI _text;
 
     private void OnEnable()

@@ -690,6 +690,31 @@ Transform:
   - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2140630791 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5565118549017730789, guid: 69721d3509d57464ca30d06ec3db466b, type: 3}
+  m_PrefabInstance: {fileID: 232316460912157991}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1000011100964940 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5355436978802870727, guid: 69721d3509d57464ca30d06ec3db466b, type: 3}
+  m_PrefabInstance: {fileID: 232316460912157991}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4000012434809055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011100964940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 784fcbd15a15ee24b871650d85854a9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bots: []
+  _botDockStationPrefab: {fileID: 3186667873570751669, guid: 1d368c602c617c343874659078f676aa, type: 3}
+  _crystalStorage: {fileID: 2140630791}
 --- !u!1001 &232316460912157991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -750,10 +775,14 @@ PrefabInstance:
       propertyPath: _target
       value: 
       objectReference: {fileID: 963194228}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5615274184149203718, guid: 69721d3509d57464ca30d06ec3db466b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5355436978802870727, guid: 69721d3509d57464ca30d06ec3db466b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4000012434809055}
   m_SourcePrefab: {fileID: 100100000, guid: 69721d3509d57464ca30d06ec3db466b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

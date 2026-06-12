@@ -1097,7 +1097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133a05956349e1f478303c2bdfb43774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basePrefab: {fileID: 5615274184149203718, guid: 69721d3509d57464ca30d06ec3db466b, type: 3}
+  _basePrefab: {fileID: 4143307508521560127, guid: 69721d3509d57464ca30d06ec3db466b, type: 3}
   _pickUpDistance: 1
   _crystalLayerMask:
     serializedVersion: 2
@@ -1509,7 +1509,7 @@ GameObject:
   - component: {fileID: 6978179305318683159}
   - component: {fileID: 3186667873570751669}
   m_Layer: 0
-  m_Name: Unit Start Position
+  m_Name: Bot Dock Station
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

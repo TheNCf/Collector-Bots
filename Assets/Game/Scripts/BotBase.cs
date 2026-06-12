@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Base : MonoBehaviour
+public class BotBase : MonoBehaviour
 {
     [SerializeField] private BurstSearcher _burstSearcher;
-    [SerializeField] private UnitCommander _unitCommander;
+    [SerializeField] private BotCommander _unitCommander;
     [SerializeField] private Flag _flagPrefab;
     [SerializeField] private int _crystalPrice = 50;
     [SerializeField] private int _newUnitCost = 150;
@@ -20,7 +20,7 @@ public class Base : MonoBehaviour
 
     public bool FocusOnExpand { get; private set; } = false;
 
-    public bool CanExpand => _unitCommander.UnitsUnderCommand > 1;
+    public bool CanExpand => _unitCommander.BotsUnderCommand > 1;
 
     public event Action<int> CrystalResourceChanged;
 
@@ -69,13 +69,13 @@ public class Base : MonoBehaviour
 
         if (FocusOnExpand)
         {
-            if (_crystalResource < _newBaseCost || _unitCommander.UnitsUnderCommand < 2)
+            if (_crystalResource < _newBaseCost || _unitCommander.BotsUnderCommand < 2)
                 return;
 
             _crystalResource -= _newBaseCost;
             CrystalResourceChanged?.Invoke(_crystalResource);
             _expandPosition = _currentFlag.transform.position;
-            _unitCommander.SendUnitToBuildBase(_expandPosition);
+            _unitCommander.SendBotToBuildBase(_expandPosition);
             _currentFlag = null;
             FocusOnExpand = false;
         }
@@ -84,7 +84,7 @@ public class Base : MonoBehaviour
             if (_crystalResource < _newUnitCost)
                 return;
 
-            _unitCommander.CreateNewUnit();
+            _unitCommander.CreateNewBot();
             _crystalResource -= _newUnitCost;
             CrystalResourceChanged?.Invoke(_crystalResource);
         }
