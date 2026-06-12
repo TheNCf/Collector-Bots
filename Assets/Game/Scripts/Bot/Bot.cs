@@ -19,13 +19,11 @@ public class Bot : MonoBehaviour
 
     private Vector3 _startPlace;
 
-    private Collider _carriedCrystal;
-
     private bool _isInitialized = false;
 
     public bool IsBusy { get; private set; } = false;
 
-    public event Action<Crystal> CrystalDelivered;
+    public event Action CrystalDelivered;
 
     private void Awake()
     {
@@ -60,14 +58,10 @@ public class Bot : MonoBehaviour
 
         if (_animator.GetBool(BotAnimatorData.Params.IsCarrying))
         {
-            if (_carriedCrystal == null)
-                return;
-
             _mover.SetTarget(_startPlace);
             IsBusy = false;
             _animator.SetBool(BotAnimatorData.Params.IsCarrying, false);
-            CrystalDelivered?.Invoke(_carriedCrystal.GetComponent<Crystal>());
-            _carriedCrystal = null;
+            CrystalDelivered?.Invoke();
         }
         else
         {
@@ -105,13 +99,12 @@ public class Bot : MonoBehaviour
 
     private bool TryTakeCrystal()
     {
-        _carriedCrystal = Physics.OverlapSphere(transform.position, _pickUpDistance, _crystalLayerMask).FirstOrDefault();
+        Collider crystalCollider = Physics.OverlapSphere(transform.position, _pickUpDistance, _crystalLayerMask).FirstOrDefault();
+        Crystal crystal = crystalCollider.GetComponent<Crystal>();
 
-        if (_carriedCrystal != null)
-        {
-            _carriedCrystal.transform.parent = transform;
-        }
+        if (crystalCollider != null)
+            crystal.SetCatched();
 
-        return _carriedCrystal != null;
+        return crystalCollider != null;
     }
 }

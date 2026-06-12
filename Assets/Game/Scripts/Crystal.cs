@@ -5,11 +5,11 @@ public class Crystal : MonoBehaviour, IPoolableObject
 {
     public bool IsTargeted { get; private set; } = false;
 
-    public event Action<Crystal> Delivered;
+    public event Action<Crystal> Catched;
 
-    public void OnDelivered()
+    public void SetCatched()
     {
-        Delivered?.Invoke(this);
+        Catched?.Invoke(this);
     }
 
     public void OnTargeted()
@@ -26,6 +26,6 @@ public class Crystal : MonoBehaviour, IPoolableObject
     {
         gameObject.SetActive(false);
         IsTargeted = false;
-        Delivered = null;
+        Catched = null;
     }
 }

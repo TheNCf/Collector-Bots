@@ -10,7 +10,7 @@ public class UnitCommander : MonoBehaviour
     [SerializeField] private GameObject _newUnitPrefab;
     [SerializeField] private Transform _crystalStorage;
 
-    private Action<Crystal> _onCrystalDelivered;
+    private Action _onCrystalDelivered;
 
     private int _unitsMaxWidth = 3;
     private int _currentWidthIndex = 0;
@@ -39,7 +39,7 @@ public class UnitCommander : MonoBehaviour
         }
     }
 
-    public void Initialize(Action<Crystal> OnCrystalDelivered)
+    public void Initialize(Action OnCrystalDelivered)
     {
         _onCrystalDelivered = OnCrystalDelivered;
     }

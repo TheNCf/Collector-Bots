@@ -62,11 +62,10 @@ public class Base : MonoBehaviour
         _currentFlag.Dropped -= OnFlagDropped;
     }
 
-    private void AddCrystal(Crystal crystal)
+    private void AddCrystal()
     {
         _crystalResource += _crystalPrice;
         CrystalResourceChanged?.Invoke(_crystalResource);
-        crystal.OnDelivered();
 
         if (FocusOnExpand)
         {
