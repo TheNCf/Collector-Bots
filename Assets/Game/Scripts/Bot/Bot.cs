@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(StateMachine), typeof(BotMover))]
+[RequireComponent(typeof(BotAnimationEventHandler), typeof(BotBackpack))]
 public class Bot : MonoBehaviour
 {
     [SerializeField] private float _pickUpDistance = 1f;
@@ -15,6 +16,7 @@ public class Bot : MonoBehaviour
     private Animator _animator;
     private StateMachine _stateMachine;
     private BotMover _mover;
+    private BotBackpack _backpack;
 
     private Vector3 _startPlace;
 
@@ -29,6 +31,7 @@ public class Bot : MonoBehaviour
         _animator = GetComponent<Animator>();
         _stateMachine = GetComponent<StateMachine>();
         _mover = GetComponent<BotMover>();
+        _backpack = GetComponent<BotBackpack>();
 
         InitializeStateMachine();
 
@@ -61,6 +64,11 @@ public class Bot : MonoBehaviour
             IsBusy = false;
             _animator.SetBool(BotAnimatorData.Params.IsCarrying, false);
             CrystalDelivered?.Invoke();
+            
+            if (_backpack.Drop().TryGetComponent(out Crystal crystal))
+            {
+                crystal.SetCatched();
+            }
         }
         else
         {
@@ -80,6 +88,8 @@ public class Bot : MonoBehaviour
     public void BuildBase(Vector3 position, BotBaseSpawner botBaseSpawner)
     {
         AquireTarget(position);
+        _backpack.Drop();
+
         _mover.PathCompleted += () =>
         {
             botBaseSpawner.SpawnBotBase(position);
@@ -99,11 +109,13 @@ public class Bot : MonoBehaviour
     private bool TryTakeCrystal()
     {
         Collider crystalCollider = Physics.OverlapSphere(transform.position, _pickUpDistance, _crystalLayerMask).FirstOrDefault();
-        Crystal crystal = crystalCollider.GetComponent<Crystal>();
 
-        if (crystalCollider != null)
-            crystal.SetCatched();
+        if (crystalCollider.TryGetComponent(out Crystal crystal))
+        {
+            _backpack.Put(crystal.gameObject);
+            return true;
+        }
 
-        return crystalCollider != null;
+        return false;
     }
 }
