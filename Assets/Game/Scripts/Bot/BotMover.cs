@@ -11,10 +11,10 @@ public class BotMover : MonoBehaviour
 
     private bool _isPathCompleted = true;
 
-    public float CurrentSqrSpeed => _agent.desiredVelocity.sqrMagnitude;
-
     public event Action TargetAcquired;
     public event Action PathCompleted;
+
+    public float CurrentSqrSpeed => _agent.desiredVelocity.sqrMagnitude;
 
     private void Update()
     {
