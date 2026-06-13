@@ -18,11 +18,11 @@ public class BotBase : MonoBehaviour
 
     private Vector3 _expandPosition;
 
+    public event Action<int> CrystalResourceChanged;
+
     public bool FocusOnExpand { get; private set; } = false;
 
     public bool CanExpand => _botCommander.BotsUnderCommand > 1;
-
-    public event Action<int> CrystalResourceChanged;
 
     private void Awake()
     {

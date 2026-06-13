@@ -12,8 +12,8 @@ public class BurstSearcher : MonoBehaviour
 
     private WaitForSeconds _delay;
 
-    Collider[] _colliders = new Collider[10];
-    List<Crystal> _foundCrystals = new List<Crystal>(10);
+    private Collider[] _colliders = new Collider[10];
+    private List<Crystal> _foundCrystals = new List<Crystal>(10);
 
     public event Action<IReadOnlyList<Crystal>> SearchConducted;
 

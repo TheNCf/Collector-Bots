@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class Crystal : MonoBehaviour, IPoolableObject
 {
-    public bool IsTargeted { get; private set; } = false;
-
     public event Action<Crystal> Catched;
+
+    public bool IsTargeted { get; private set; } = false;
 
     public void SetCatched()
     {
         Catched?.Invoke(this);
     }
 
-    public void OnTargeted()
+    public void SetTargeted()
     {
         IsTargeted = true;
     }

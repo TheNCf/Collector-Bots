@@ -63,7 +63,7 @@ public class BotCommander : MonoBehaviour
                 return;
 
             bot.AquireTarget(_targets[targetIndex].transform.position);
-            _targets[targetIndex].OnTargeted();
+            _targets[targetIndex].SetTargeted();
             targetIndex++;
         }
     }

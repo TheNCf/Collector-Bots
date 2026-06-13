@@ -20,9 +20,9 @@ public class Bot : MonoBehaviour
 
     private bool _isInitialized = false;
 
-    public bool IsBusy { get; private set; } = false;
-
     public event Action CrystalDelivered;
+
+    public bool IsBusy { get; private set; } = false;
 
     private void Awake()
     {
@@ -50,7 +50,7 @@ public class Bot : MonoBehaviour
         IsBusy = true;
     }
 
-    public void OnPickUpFinished()
+    public void HandleInteraction()
     {
         if (IsBusy == false)
             return;

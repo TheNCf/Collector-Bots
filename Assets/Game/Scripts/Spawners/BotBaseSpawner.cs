@@ -10,7 +10,7 @@ public class BotBaseSpawner : MonoBehaviour
 
     [SerializeField] private Vector3 _firstBasePosition;
 
-    void Awake()
+    private void Awake()
     {
         SpawnBotBase(_firstBasePosition);
     }
