@@ -22,7 +22,7 @@ public class Bot : MonoBehaviour
 
     private bool _isInitialized = false;
 
-    public event Action CrystalDelivered;
+    public event Action<Crystal> CrystalDelivered;
 
     public bool IsBusy { get; private set; } = false;
 
@@ -63,11 +63,11 @@ public class Bot : MonoBehaviour
             _mover.SetTarget(_startPlace);
             IsBusy = false;
             _animator.SetBool(BotAnimatorData.Params.IsCarrying, false);
-            CrystalDelivered?.Invoke();
             
             if (_backpack.Drop().TryGetComponent(out Crystal crystal))
             {
                 crystal.SetCatched();
+                CrystalDelivered?.Invoke(crystal);
             }
         }
         else

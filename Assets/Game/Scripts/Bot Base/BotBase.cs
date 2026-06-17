@@ -5,23 +5,25 @@ using UnityEngine;
 
 public class BotBase : MonoBehaviour
 {
-    [SerializeField] private BurstSearcher _burstSearcher;
     [SerializeField] private BotCommander _botCommander;
     [SerializeField] private Flag _flagPrefab;
     [SerializeField] private int _crystalPrice = 50;
     [SerializeField] private int _newBotCost = 150;
     [SerializeField] private int _newBaseCost = 250;
 
+    private BurstSearcher _burstSearcher;
+
     private Flag _currentFlag;
 
+    private int _index;
     private int _crystalResource = 0;
 
     private Vector3 _expandPosition;
 
     public event Action<int> CrystalResourceChanged;
 
+    public int Index => _index;
     public bool FocusOnExpand { get; private set; } = false;
-
     public bool CanExpand => _botCommander.BotsUnderCommand > 1;
 
     private void Awake()
@@ -29,19 +31,19 @@ public class BotBase : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 180f, 0f);
     }
 
-    private void OnEnable()
-    {
-        _burstSearcher.SearchConducted += _botCommander.AquireTargets;
-    }
-
     private void OnDisable()
     {
         _burstSearcher.SearchConducted -= _botCommander.AquireTargets;
     }
 
-    public void Initialize(BotBaseSpawner botBaseSpawner)
+    public void Initialize(int index, BotBaseSpawner botBaseSpawner, BurstSearcher burstSearcher)
     {
-        _botCommander.Initialize(AddCrystal, botBaseSpawner);
+        _index = index;
+
+        _burstSearcher = burstSearcher;
+        _burstSearcher.SearchConducted += _botCommander.AquireTargets;
+
+        _botCommander.Initialize(_index, AddCrystal, botBaseSpawner);
     }
 
     public Flag CreateFlag()
@@ -66,10 +68,11 @@ public class BotBase : MonoBehaviour
         _currentFlag.Dropped -= OnFlagDropped;
     }
 
-    private void AddCrystal()
+    private void AddCrystal(Crystal crystal)
     {
         _crystalResource += _crystalPrice;
         CrystalResourceChanged?.Invoke(_crystalResource);
+        _burstSearcher.RemoveCrystal(crystal);
 
         if (FocusOnExpand)
         {

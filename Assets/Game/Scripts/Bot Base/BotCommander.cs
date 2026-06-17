@@ -12,6 +12,8 @@ public class BotCommander : MonoBehaviour
 
     private BotBaseSpawner _botBaseSpawner;
 
+    private int _index;
+
     private int _botsStationsMaxWidth = 3;
     private int _currentStationWidthIndex = 0;
     private int _currentStationLengthIndex = 0;
@@ -23,7 +25,7 @@ public class BotCommander : MonoBehaviour
 
     public int BotsUnderCommand => _bots.Count;
 
-    private Action _onCrystalDelivered;
+    private Action<Crystal> _onCrystalDelivered;
 
     private void Start()
     {
@@ -43,28 +45,30 @@ public class BotCommander : MonoBehaviour
         }
     }
 
-    public void Initialize(Action OnCrystalDelivered, BotBaseSpawner botBaseSpawner)
+    public void Initialize(int index, Action<Crystal> OnCrystalDelivered, BotBaseSpawner botBaseSpawner)
     {
+        _index = index;
+
         _onCrystalDelivered = OnCrystalDelivered;
         _botBaseSpawner = botBaseSpawner;
         _isInitialized = true;
     }
 
-    public void AquireTargets(IReadOnlyList<Crystal> _targets)
+    public void AquireTargets(IReadOnlyDictionary<Crystal, int> _targets)
     {
-        int targetIndex = 0;
-
         foreach (Bot bot in _bots)
         {
             if (bot.IsBusy)
                 continue;
 
-            if (targetIndex >= _targets.Count)
+            //TODO: implement bot aquring logic
+            Crystal target = _targets.FindFirstKeyByValue(_index);
+
+            if (target == null)
                 return;
 
-            bot.AquireTarget(_targets[targetIndex].transform.position);
-            _targets[targetIndex].SetTargeted();
-            targetIndex++;
+            bot.AquireTarget(target.transform.position);
+            _botBaseSpawner.BurstSearcher.SetCrystalUnavailable(target);
         }
     }
 

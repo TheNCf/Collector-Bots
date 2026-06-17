@@ -18,6 +18,9 @@ public class BotBackpack : MonoBehaviour
 
     public GameObject Drop()
     {
+        if (_item == null)
+            return null;
+
         _item.transform.position = transform.position;
         _item.SetActive(true);
         GameObject buffer = _item;
