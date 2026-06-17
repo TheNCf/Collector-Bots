@@ -465,6 +465,51 @@ MonoBehaviour:
   _baseLayerMask:
     serializedVersion: 2
     m_Bits: 256
+--- !u!1 &1042816441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1042816443}
+  - component: {fileID: 1042816442}
+  m_Layer: 0
+  m_Name: GameAccelerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1042816442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042816441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42dfedaa3bb62f84fad7ff8079bc6f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameSpeedMultiplier: 3
+--- !u!4 &1042816443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042816441}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -28.778664, y: 13.038357, z: -39.150562}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1124781022
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,7 +650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _burstDelay: 1
-  _searchRadius: 20
+  _searchRadius: 30
   _targetLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -640,9 +685,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PrefabToSpawn: {fileID: 811502175941118648, guid: 8f4a122493835c443b492d8e720b439e, type: 3}
-  PoolSizeAtStart: 15
-  _radius: 15
-  _delay: 1
+  PoolSizeAtStart: 1000
+  _radius: 200
+  _delay: 0.05
 --- !u!4 &1611060540
 Transform:
   m_ObjectHideFlags: 0
@@ -652,7 +697,7 @@ Transform:
   m_GameObject: {fileID: 1611060538}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.76, y: 10, z: -8.85}
+  m_LocalPosition: {x: -0.76, y: 100, z: -8.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -706,7 +751,7 @@ MonoBehaviour:
       outWeight: 0.380777
     - serializedVersion: 3
       time: 1
-      value: 12
+      value: 24
       inSlope: -0.13371386
       outSlope: -0.13371386
       tangentMode: 0
@@ -766,3 +811,4 @@ SceneRoots:
   - {fileID: 1611060540}
   - {fileID: 1124781025}
   - {fileID: 1145246099}
+  - {fileID: 1042816443}

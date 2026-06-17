@@ -72,6 +72,7 @@ public class BotBase : MonoBehaviour
     {
         _crystalResource += _crystalPrice;
         CrystalResourceChanged?.Invoke(_crystalResource);
+        crystal.transform.Translate(0, float.MaxValue, 0);
         _burstSearcher.RemoveCrystal(crystal);
 
         if (FocusOnExpand)

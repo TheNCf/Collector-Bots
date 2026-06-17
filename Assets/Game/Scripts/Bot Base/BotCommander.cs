@@ -82,7 +82,7 @@ public class BotCommander : MonoBehaviour
         newBotDockStation.transform.parent = transform;
         newBotDockStation.transform.forward = transform.forward;
         Bot newBot = newBotDockStation.GetComponentInChildren<Bot>(true);
-        newBot.Initialize(_crystalStorage);
+        newBot.Initialize(_crystalStorage, _botBaseSpawner.BurstSearcher);
         newBot.CrystalDelivered += _onCrystalDelivered;
         _bots.Add(newBot);
 

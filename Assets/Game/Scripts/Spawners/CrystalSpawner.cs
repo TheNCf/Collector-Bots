@@ -33,6 +33,7 @@ public class CrystalSpawner : SpawnerBase<Crystal>
     {
         Crystal obj = base.Create();
         obj.transform.parent = transform;
+        obj.transform.position = transform.position;
         return obj;
     }
 

@@ -17,10 +17,13 @@ public class Bot : MonoBehaviour
     private StateMachine _stateMachine;
     private BotMover _mover;
     private BotBackpack _backpack;
+    private BurstSearcher _burstSearcher;
 
     private Vector3 _startPlace;
 
     private bool _isInitialized = false;
+
+    private Crystal _targetCrystal;
 
     public event Action<Crystal> CrystalDelivered;
 
@@ -40,21 +43,26 @@ public class Bot : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Initialize(Transform crystalStorage)
+    public void Initialize(Transform crystalStorage, BurstSearcher burstSearcher)
     {
         _crystalStorage = crystalStorage;
+        _burstSearcher = burstSearcher;
         gameObject.SetActive(true);
         _isInitialized = true;
     }
 
-    public void AquireTarget(Vector3 position)
+    public void AquireTarget(Vector3 position, Crystal targetCrystal = null)
     {
         _mover.SetTarget(position);
         IsBusy = true;
+        _targetCrystal = targetCrystal;
     }
 
     public void HandleInteraction()
     {
+        if (_isInitialized == false)
+            throw new Exception($"Bot ({gameObject.name}) can't interract while not initialized!");
+
         if (IsBusy == false)
             return;
 
@@ -80,15 +88,28 @@ public class Bot : MonoBehaviour
             else
             {
                 _mover.SetTarget(_startPlace);
+                _burstSearcher.RemoveCrystal(_targetCrystal);
                 IsBusy = false;
             }
+
+            _targetCrystal = null;
         }
     }
 
     public void BuildBase(Vector3 position, BotBaseSpawner botBaseSpawner)
     {
         AquireTarget(position);
-        _backpack.Drop();
+
+        GameObject droppedObject = _backpack.Drop();
+        _animator.SetBool(BotAnimatorData.Params.IsCarrying, false);
+
+        if (droppedObject != null)
+        {
+            droppedObject.TryGetComponent(out Crystal droppedCrystal);
+            _burstSearcher.RemoveCrystal(droppedCrystal);
+        }
+
+        _burstSearcher.RemoveCrystal(_targetCrystal);
 
         _mover.PathCompleted += () =>
         {

@@ -36,6 +36,9 @@ public class BurstSearcher : MonoBehaviour
 
     public void RemoveCrystal(Crystal crystal)
     {
+        if (crystal == null)
+            return;
+
         if (_foundCrystals.ContainsKey(crystal) == false)
         {
             Debug.LogWarning("Trying to remove undiscovered crystal.");
@@ -93,6 +96,7 @@ public class BurstSearcher : MonoBehaviour
             }
 
             i++;
+            _colliders = new Collider[_searchBufferSize];
         }
 
         _foundCrystals = new Dictionary<Crystal, int>(GroupSorter.SortDictionary(_foundCrystals, _baseSpawner.BotBaseList.Select((BotBase botBase) => botBase.transform).ToList()));
