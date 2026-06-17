@@ -7,15 +7,16 @@ public static class GroupSorter
 {
     public static List<KeyValuePair<T, int>> SortDictionary<T>(Dictionary<T, int> inputData, List<Transform> groupTargets) where T : Component
     {
-        if (inputData == null) throw new ArgumentNullException(nameof(inputData));
-        if (groupTargets == null) throw new ArgumentNullException(nameof(groupTargets));
+        if (inputData == null) 
+            throw new ArgumentNullException(nameof(inputData));
+
+        if (groupTargets == null) 
+            throw new ArgumentNullException(nameof(groupTargets));
 
         List<KeyValuePair<T, int>> list = new List<KeyValuePair<T, int>>(inputData);
 
         if (list.Count > 1)
-        {
             QuickSort(list, 0, list.Count - 1, groupTargets);
-        }
 
         return list;
     }
@@ -51,22 +52,17 @@ public static class GroupSorter
     private static int CompareElements<T>(KeyValuePair<T, int> a, KeyValuePair<T, int> b, List<Transform> groupTargets) where T : Component
     {
         if (a.Value != b.Value)
-        {
             return a.Value.CompareTo(b.Value);
-        }
 
         int groupIndex = a.Value;
 
         if (groupIndex < 0 || groupIndex >= groupTargets.Count)
-        {
             return 0;
-        }
 
         Transform target = groupTargets[groupIndex];
+
         if (target == null || a.Key == null || b.Key == null)
-        {
             return 0;
-        }
 
         Vector3 posA = a.Key.transform.position;
         Vector3 posB = b.Key.transform.position;
